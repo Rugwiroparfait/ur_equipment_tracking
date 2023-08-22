@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UR-CAVM Equipment Tracking - Administrator</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Equipment Tracking System - Administrator</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Registration Number</th>
+          <th>Serial Number</th>
+          <th>Entry Date</th>
+          <th>Exit Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        // Retrieve data from the database and populate the table
+        $connection = new mysqli("your_db_host", "your_db_username", "your_db_password", "your_db_name");
+        if ($connection->connect_error) {
+          die("Connection failed: " . $connection->connect_error);
+        }
+
+        $query = "SELECT * FROM equipment_tracking";
+        $result = $connection->query($query);
+
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>{$row['registration_number']}</td>";
+            echo "<td>{$row['serial_number']}</td>";
+            echo "<td>{$row['entry_date']}</td>";
+            echo "<td>{$row['exit_date']}</td>";
+            echo "</tr>";
+          }
+        }
+
+        $connection->close();
+        ?>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
